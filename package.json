@@ -1,0 +1,19 @@
+{
+  "name": "test-last",
+  "version": "1.0.0",
+  "description": "Agenda:",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgg/testing-TDD.git"
+  },
+  "author": "Daniel González García",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dgg/testing-TDD/issues"
+  },
+  "homepage": "https://github.com/dgg/testing-TDD#readme"
+}
