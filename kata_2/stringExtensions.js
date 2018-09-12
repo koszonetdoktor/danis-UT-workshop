@@ -1,13 +1,13 @@
-exports.emptyIfNull = (str) => {
+const emptyIfNull = (str) => {
 	return str ? str : ''
 }
 
-exports.isEmpty = (str) => {
+const isEmpty = (str) => {
 	const empty = str === undefined || str === null || str === ''
 	return empty
 }
 
-let nullOrAction = (str, func) => {
+const nullOrAction = (str, func) => {
 	let result = null
 	if (str != null) {
 		result = func(result)
@@ -28,7 +28,7 @@ exports.left = (str, length = 0) => {
 
 exports.leftFromFirst = (str, substring) => {
 	const result = nullOrAction(str, ()=>{
-		substring = exports.emptyIfNull(str)
+		substring = emptyIfNull(str)
 		indexOfSubstringStart = str.indexOf(substring)
 		indexOfSubstringStart = indexOfSubstringStart >= 0 ? indexOfSubstringStart : -1
 
