@@ -1,6 +1,9 @@
 var Bucket = require("./alphabeticalBucket").AlphabeticalBucket
 var Aggregable = require("./aggregable").Aggregable
 
+const _byDisplayName = Symbol("byDisplayName")
+const _placeAggregableInLink = Symbol("_placeAggregableInLink")
+
 class AlphabeticalAggregator {
 	constructor(locale, alphabetProvider) {
 		this._locale = locale
@@ -12,34 +15,34 @@ class AlphabeticalAggregator {
 			.map(letter => new AlphabeticLink(letter, this._locale))
 		links.push(new OverflowLink())
 
-		let orderedAggregables = unOrderedAggregables ?
-			unOrderedAggregables :
-			[]
+		let orderedAggregables = unOrderedAggregables ? unOrderedAggregables : []
 
 		// sort aggregables alphabetically before aggregate them
-		orderedAggregables.sort((a, b) => {
-			let result = 0
-			if (a && a.displayName) {
-				if (b && b.displayName) {
-					result = a.displayName.localeCompare(b.displayName, this._locale)
-				}
-			}
-			return result
-		})
+		orderedAggregables.sort((a, b) => this[_byDisplayName](a, b))
 
-		// aggreagte them by links
-		orderedAggregables.forEach(aggregable => {
-			//let i
-			for (let i = 0; i < links.length; i++) {
-				if (links[i].canHandle(aggregable)){
-					links[i].handle(aggregable)
-					break
-				}
-			}
-		})
+		orderedAggregables.forEach(aggregable => this[_placeAggregableInLink](links, aggregable))
 
 		const buckets = links.map(link => link.asBucket())
 		return buckets
+	}
+
+	[_byDisplayName](a, b) {
+		let result = 0
+		if (a && a.displayName) {
+			if (b && b.displayName) {
+				result = a.displayName.localeCompare(b.displayName, this._locale)
+			}
+		}
+		return result
+	}
+
+	[_placeAggregableInLink](links, aggregable) {
+		for (let i = 0; i < links.length; i++) {
+			if (links[i].canHandle(aggregable)) {
+				links[i].handle(aggregable)
+				break
+			}
+		}
 	}
 }
 
@@ -54,7 +57,7 @@ class AlphabeticLink {
 		let can = false
 		if (aggregable && aggregable instanceof Aggregable) {
 			const aggregableInitial = aggregable.getInitial(this._locale)
-			can = aggregableInitial.localeCompare(this._initial, this._locale, {sensitivity : 'accent'}) == 0
+			can = aggregableInitial.localeCompare(this._initial, this._locale, { sensitivity: 'accent' }) == 0
 		}
 		return can
 	}
