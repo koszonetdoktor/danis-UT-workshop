@@ -4,7 +4,7 @@
 	"description": "Agenda:",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha test/**.spec.js"
+		"test": "mocha test/*.spec.js -w"
 	},
 	"repository": {
 		"type": "git",
@@ -15,5 +15,10 @@
 	"bugs": {
 		"url": "https://github.com/dgg/testing-TDD/issues"
 	},
-	"homepage": "https://github.com/dgg/testing-TDD#readme"
+	"homepage": "https://github.com/dgg/testing-TDD#readme",
+	"dependencies": {
+		"chai": "^4.1.2",
+		"mocha": "^5.2.0",
+		"sinon": "^6.3.4"
+	}
 }

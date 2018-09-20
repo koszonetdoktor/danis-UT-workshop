@@ -27,7 +27,7 @@ exports.left = (str, length = 0) => {
 }
 
 exports.leftFromFirst = (str, substring) => {
-	const result = nullOrAction(str, ()=>{
+	const result = nullOrAction(str, () => {
 		substring = emptyIfNull(str)
 		indexOfSubstringStart = str.indexOf(substring)
 		indexOfSubstringStart = indexOfSubstringStart >= 0 ? indexOfSubstringStart : -1
