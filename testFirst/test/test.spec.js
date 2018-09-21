@@ -33,7 +33,7 @@ describe("TestFirst", () => {
     })
     it("we dont have file extension", () => {
         const args = ["node", "cource", "-f", "file"]
-        expect(() => subject.parserArgs(args)).to.throw()
+        expect(() => subject.parserArgs(args)).to.throw("You need to provide a file with extension")
     })
     it("we have bad switch", () => {
         const args = ["node", "cource", "-g", "file.add"]

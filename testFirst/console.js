@@ -16,6 +16,10 @@ const parserArgs = (args) => {
     throw "error"
 }
 
+error() {
+    console.error(e)
+}
+
 // parserArgs(process.argv)
 
 exports.parserArgs = parserArgs
